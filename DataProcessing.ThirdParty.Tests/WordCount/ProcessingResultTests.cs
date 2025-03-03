@@ -21,7 +21,7 @@ namespace DataProcessing.ThirdParty.Tests.WordCount
             _output.WriteLine($"Testing:\n {info}");           
 
             var text = _englishDictionary.Value;
-            var expected = text.Split("\r\n").ToDictionary(i => i.Trim(), i => 1);
+            var expected = text.Split("\n").ToDictionary(i => i.Trim(), i => 1);
 
             var actual = methodToTest(text);
 
