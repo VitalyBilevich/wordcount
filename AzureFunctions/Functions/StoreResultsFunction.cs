@@ -58,7 +58,7 @@ namespace AzureFunctions.Functions
                     }
                     catch (CosmosException ex) when (ex.StatusCode == System.Net.HttpStatusCode.NotFound)
                     {
-                        currentWordCountResult = new WordCountResult { Id = wordCountResult.Word, Word = wordCountResult.Word, Session = wordCountResult.Session, Count = wordCountResult.Count };
+                        currentWordCountResult = new WordCountResult { Id = wordCountResult.Word, Word = wordCountResult.Word, Session = wordCountResult.Session, Count = wordCountResult.Count, Timestamp = DateTime.UtcNow };
                         await _cosmosContainer.UpsertItemAsync(currentWordCountResult, new PartitionKey(currentWordCountResult.Session));
                     }
 

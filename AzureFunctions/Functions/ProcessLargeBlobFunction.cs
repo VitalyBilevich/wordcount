@@ -28,15 +28,13 @@ namespace AzureFunctions.Functions
 
             var containerClient = _blobServiceClient.GetBlobContainerClient(ConstBlobContainer.FileProcessingBlobContainerName);
             var blobClient = containerClient.GetBlobClient(blobName);
-            var content = await blobClient.DownloadContentAsync();
-            var blobText = content.Value.Content.ToString();
-            var chunkSize = 1 * 1024 * 1024; // 1 MB
 
+            var chunkSize = 1 * 1024 * 1024; // 1 MB
             var tasks = new List<Task<Dictionary<string, int>>>();
-            for (int i = 0; i < blobText.Length; i += chunkSize)
+
+            await foreach (var chunk in DownloadBlobInChunks(blobClient, chunkSize))
             {
-                var chunk = blobText.Substring(i, chunkSize);
-                tasks.Add(Task.Run(() => _wordCounter.CountWords(chunk)));
+                tasks.Add(Task.Run(() => _wordCounter.CountWordsDFAConcurrent(chunk)));
             }
 
             var mapResults = await Task.WhenAll(tasks);
@@ -53,6 +51,20 @@ namespace AzureFunctions.Functions
             }
 
             return finalResult;
-        }       
+        }
+
+        private async IAsyncEnumerable<string> DownloadBlobInChunks(BlobClient blobClient, int chunkSize)
+        {
+            var downloadInfo = await blobClient.DownloadAsync();
+            using var stream = downloadInfo.Value.Content;
+            using var reader = new StreamReader(stream);
+
+            char[] buffer = new char[chunkSize];
+            int bytesRead;
+            while ((bytesRead = await reader.ReadAsync(buffer, 0, chunkSize)) > 0)
+            {
+                yield return new string(buffer, 0, bytesRead);
+            }
+        }
     }
 }

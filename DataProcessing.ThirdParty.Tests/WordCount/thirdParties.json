@@ -1,0 +1,17 @@
+[
+  {
+    "Name": "Our own text processor. Default method.",
+    "ClassName": "TextProcessor.WordCounter, TextProcessor",
+    "MethodName": "CountWords"
+  },
+  {
+    "Name": "Our own text processor. DFA method.",
+    "ClassName": "TextProcessor.WordCounter, TextProcessor",
+    "MethodName": "CountWordsDFA"
+  },
+  {
+    "Name": "Our own text processor. DFA Concurrent method.",
+    "ClassName": "TextProcessor.WordCounter, TextProcessor",
+    "MethodName": "CountWordsDFAConcurrent"
+  }
+]

@@ -28,7 +28,7 @@ namespace AzureFunctions.Functions
             var blobClient = containerClient.GetBlobClient(blobName);
             var fileContent = await blobClient.DownloadContentAsync();
 
-            return _wordCounter.CountWords(fileContent.Value.Content.ToString());
+            return _wordCounter.CountWordsDFAConcurrent(fileContent.Value.Content.ToString());
         }
     }
 }

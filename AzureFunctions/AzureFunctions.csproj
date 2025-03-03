@@ -7,6 +7,18 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Remove="BlobTriggerFunction - Copy.cs" />
+    <Compile Remove="BlobTriggerFunction - Work.cs" />
+    <Compile Remove="DurableOrchestratorFunction - Copy %282%29.cs" />
+    <Compile Remove="DurableOrchestratorFunction - Copy %283%29.cs" />
+    <Compile Remove="DurableOrchestratorFunction - Copy %284%29.cs" />
+    <Compile Remove="DurableOrchestratorFunction - Copy %285%29.cs" />
+    <Compile Remove="DurableOrchestratorFunction - Copy.cs" />
+    <Compile Remove="DurableOrchestratorFunction - Work.cs" />
+    <Compile Remove="DurableOrchestratorFunction - Work2.cs" />
+    <Compile Remove="Program - Work.cs" />
+  </ItemGroup>
+  <ItemGroup>
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.ApplicationInsights.WorkerService" Version="2.22.0" />
     <PackageReference Include="Microsoft.Azure.Cosmos" Version="3.47.1" />
